@@ -4,10 +4,11 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/go-redis/redis/v8"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/go-redis/redis/v8"
 )
 
 var gPeriods = map[string]time.Duration{
@@ -179,11 +180,9 @@ func (l *Limiter) GetNowCnt(key, period string) (int, int, error) {
 
 }
 
-
 func (l *Limiter) getFullKey(id, period string) string {
 	return fmt.Sprintf("%s:%s", id, period)
 }
-
 
 func (l *Limiter) getPeriod(id, period string) (interface{}, error) {
 	return l.rc.RateGet(l.ctx, l.getFullKey(id, period))

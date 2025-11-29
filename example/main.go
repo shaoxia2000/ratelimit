@@ -2,15 +2,16 @@ package main
 
 import (
 	"context"
+	"log"
+
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis/v8"
-	"log"
-	ratelimiter "github.com/AstarLight/ratelimit"
+	ratelimiter "github.com/shaoxia2000/ratelimit"
 )
 
 var limiter *ratelimiter.Limiter
 
-//curl  -X POST "http://localhost:8080/request?username=lijunshi"
+// curl  -X POST "http://localhost:8080/request?username=lijunshi"
 func request(c *gin.Context) {
 	key := c.Query("username")
 
@@ -42,7 +43,7 @@ func request(c *gin.Context) {
 
 }
 
-//curl  -X POST "http://localhost:8080/del_limit?username=lijunshi&period=Minute"
+// curl  -X POST "http://localhost:8080/del_limit?username=lijunshi&period=Minute"
 func delLimit(c *gin.Context) {
 	key := c.Query("username")
 	period := c.Query("period")
@@ -61,7 +62,7 @@ func delLimit(c *gin.Context) {
 	}
 }
 
-//curl  -X POST "http://localhost:8080/set_limit?username=lijunshi&period=Minute&limit=20"
+// curl  -X POST "http://localhost:8080/set_limit?username=lijunshi&period=Minute&limit=20"
 func setLimit(c *gin.Context) {
 	key := c.Query("username")
 	period := c.Query("period")
@@ -81,7 +82,7 @@ func setLimit(c *gin.Context) {
 	}
 }
 
-//curl  "http://localhost:8080/get_cnt?username=lijunshi&period=Minute"
+// curl  "http://localhost:8080/get_cnt?username=lijunshi&period=Minute"
 func getCnt(c *gin.Context) {
 	key := c.Query("username")
 	period := c.Query("period")
